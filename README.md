@@ -89,9 +89,47 @@ For example:
 ```bash
 SELECT first_name FROM employee;
 ```
-Also you can get two or more column_name rows with the help of this command 👇
+Also you can get two or more column_name rows with the help of this command 👇 <br/>
 **SELECT *first_column_name*, *second_column_name* FROM *table.name;*** - command to get just one column_name rows. <br/>
 For example: 
 ```bash
 SELECT first_name, last_name FROM employee;
 ```
+**
+SELECT * FROM *table.name* ORDER BY *column_name* ASC(or DESC);** — command to sort alphabetically or vice versa.
+If you are using ASC — alphabetically;
+If you are using DESC — vice versa;
+
+For example: 
+``` bash
+SELECT * FROM employee ORDER BY country_of_birth DESC;
+```
+
+**SELECT DISTINCT *column_name* FROM *table.name;*** — you can subtract exactly the same values once in a row; <br/>
+For example:
+``` bash
+SELECT DISTINCT country_of_birth FROM employee ORDER BY country_of_birth DESC;
+```
+**SELECT * FROM *table.name* WHERE *column_name* = *'value';*** — you can find out which users exactly matches your request; <br/>
+For example:
+``` bash
+SELECT * FROM employee WHERE gender = 'Female';
+```
+**SELECT * FROM *table.name* WHERE *first_column_name* = *'value';* AND *second_column_name* = *'value';*** — you can find out which users exactly matches your request; <br/>
+For example:
+``` bash
+SELECT * FROM employee WHERE gender = 'Female' AND country_of_birth = 'Russia';
+```
+Also you can use this: 👇<br/>
+For example: 
+``` bash
+SELECT * FROM employee WHERE gender = 'Female' AND (country_of_birth = 'Russia' OR country_of_birth = 'Ukraine');
+```
+
+**SELECT * FROM *table.name* LIMIT 20(or any number);** — you can get only 20 users(or something);
+For example:
+```bash
+SELECT * FROM employee LIMIT 20;
+```
+Also you can use this: 👇<br/>
+**SELECT * FROM *table.name* OFFSET 10 LIMIT 5;** — You can get 5 of the ID number users starting with the number 11.
