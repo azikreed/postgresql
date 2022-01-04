@@ -204,3 +204,10 @@ That will be the result: 2022 <br/>
 And you can use MONTH, DAY, WEEK or DOW(day of the week) <br/>
 
 > Primary Keys
+
+**ALTER TABLE employee DROP CONSTRAINT employee_pkey;** — command to delete PRIMARY KEY.
+**DELETE FROM employee where id = 1;** — command to delete any column by id.
+**ALTER TABLE employee ADD PRIMARY KEY(id);** — command to add PRIMARY KEY.
+
+> Limitations and checks
+
