@@ -126,10 +126,20 @@ For example:
 SELECT * FROM employee WHERE gender = 'Female' AND (country_of_birth = 'Russia' OR country_of_birth = 'Ukraine');
 ```
 
-**SELECT * FROM *table.name* LIMIT 20(or any number);** — you can get only 20 users(or something);
+**SELECT * FROM *table.name* LIMIT 20(or any number);** — you can get only 20 users(or something);<br/>
 For example:
 ```bash
 SELECT * FROM employee LIMIT 20;
 ```
 Also you can use this: 👇<br/>
-**SELECT * FROM *table.name* OFFSET 10 LIMIT 5;** — You can get 5 of the ID number users starting with the number 11.
+**SELECT * FROM *table.name* OFFSET 10 LIMIT 5;** — You can get 5 of the ID number users starting with the number 11. <br/>
+Also you can use this: 👇<br/>
+**SELECT * FROM *table.name* OFFSET 10 FETCH FIRST 5 ROW ONLY;** — You can get 5 of the ID number users starting with the number 11. <br/>
+
+For example you used this: 👇<br/>
+**SELECT * FROM employee WHERE country_of_birth = 'China' OR country_of_birth = 'Argentina' OR country_of_birth = 'Israel';** <br/>
+But you can use the shorter version: 👇 <br/>
+**SELECT * FROM employee WHERE country_of_birth IN('China', 'Argentina', 'Israel');** <br/>
+
+**SELECT * FROM employee WHERE date_of_birth BETWEEN '2000-01-01' AND '2001-01-01'** — you can find users who was born between these times. <br/>
+**SELECT * FROM employee WHERE email LIKE '%.com'** — you can find users whose email is created like this.
