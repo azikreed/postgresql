@@ -175,16 +175,32 @@ SELECT AVG(price) FROM holiday;
 > Working with Date and Time
 
 **SELECT NOW();** — you can know present full time. <br/>
+
 Also you can use this: 👇 <br/>
+
 **SELECT NOW()::DATE;**  — you can know present date. <br/>
+
 **SELECT NOW()::TIME;** — you can know present time. <br/>
+
 If it is 2022-01-01 and you are using this: 👇 <br/>
+
 **SELECT NOW() - INTERVAL '10 YEAR';** <br/>
+
 That will be the result: 2012-01-01 <br/>
+
 Also you can use MONTH, WEEK or DAYS. <br/>
+
 If it is 2022-01-01 and you are using this: 👇 <br/>
+
 **SELECT NOW() + INTERVAL '10 YEAR';** <br/>
+
 That will be the result: 2032-01-01 <br/>
+
 Also you can use this: 👇 <br/>
-**SELECT EXTRACT(YEAR FROM NOW())**
+
+**SELECT EXTRACT(YEAR FROM NOW())** <br/>
+
 That will be the result: 2022 <br/>
+And you can use MONTH, DAY, WEEK or DOW(day of the week) <br/>
+
+> Primary Keys
