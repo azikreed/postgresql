@@ -141,5 +141,50 @@ For example you used this: 👇<br/>
 But you can use the shorter version: 👇 <br/>
 **SELECT * FROM employee WHERE country_of_birth IN('China', 'Argentina', 'Israel');** <br/>
 
-**SELECT * FROM employee WHERE date_of_birth BETWEEN '2000-01-01' AND '2001-01-01'** — you can find users who was born between these times. <br/>
-**SELECT * FROM employee WHERE email LIKE '%.com'** — you can find users whose email is created like this.
+**SELECT * FROM employee WHERE date_of_birth BETWEEN '2000-01-01' AND '2001-01-01';** — you can find users who was born between these times. <br/>
+**SELECT * FROM employee WHERE email LIKE '%.com';** — you can find users whose email is created like this. <br/>
+**SELECT country_of_birth, COUNT(*) FROM employee GROUP BY country_of_birth;** — you can get column country_of_birth rows in the table and count of countries. <br/>
+
+**SELECT COALESCE(email, 'not applicable') FROM employee;** — you can change empty nullable rows to 'your text'.
+> Aggregates and Basic Arithmetic
+```bash
+SELECT MAX(price) FROM holiday;
+   max
+---------
+ 9975.41
+
+
+SELECT MIN(price) FROM holiday;
+  min
+--------
+ 100.65
+
+
+SELECT AVG(price) FROM holiday;
+          avg
+-----------------------
+ 4919.1838716148445336
+ 
+ SELECT ROUND(AVG(price)) FROM holiday;
+ round
+ -----
+ 4919
+```
+
+**SELECT SUM (price) FROM holiday;** — you can find a total price of something. <br/>
+> Working with Date and Time
+
+**SELECT NOW();** — you can know present full time. <br/>
+Also you can use this: 👇 <br/>
+**SELECT NOW()::DATE;**  — you can know present date. <br/>
+**SELECT NOW()::TIME;** — you can know present time. <br/>
+If it is 2022-01-01 and you are using this: 👇 <br/>
+**SELECT NOW() - INTERVAL '10 YEAR';** <br/>
+That will be the result: 2012-01-01 <br/>
+Also you can use MONTH, WEEK or DAYS. <br/>
+If it is 2022-01-01 and you are using this: 👇 <br/>
+**SELECT NOW() + INTERVAL '10 YEAR';** <br/>
+That will be the result: 2032-01-01 <br/>
+Also you can use this: 👇 <br/>
+**SELECT EXTRACT(YEAR FROM NOW())**
+That will be the result: 2022 <br/>
