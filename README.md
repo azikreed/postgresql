@@ -205,9 +205,65 @@ And you can use MONTH, DAY, WEEK or DOW(day of the week) <br/>
 
 > Primary Keys
 
-**ALTER TABLE employee DROP CONSTRAINT employee_pkey;** — command to delete PRIMARY KEY.
-**DELETE FROM employee where id = 1;** — command to delete any column by id.
-**ALTER TABLE employee ADD PRIMARY KEY(id);** — command to add PRIMARY KEY.
+**ALTER TABLE employee DROP CONSTRAINT employee_pkey;** — command to delete PRIMARY KEY. <br/>
+**DELETE FROM employee where id = 1;** — command to delete any column by id(or other columns). <br/>
+**ALTER TABLE employee ADD PRIMARY KEY(id);** — command to add PRIMARY KEY. <br/>
 
 > Limitations and checks
 
+**ALTER TABLE employee ADD CONSTRAINT unique_email_address UNIQUE(email);** — command to add unique columns. <br/>
+
+**SELECT DISTINCT *column_name* FROM *table.name;*** — command to see exactly one or the other column. <br/>
+For example:
+``` bash
+SELECT DISTINCT gender FROM employee;
+```
+
+Also you can use limitations like this: 👇 <br/>
+ALTER TABLE employee ADD CONSTRAINT gender_constraint CHECK (gender = 'Female' OR gender = 'Male'); <br/>
+
+> UPSERT and Conflict Handling
+
+**UPDATE table.name SET column_name = 'new column_value' WHERE id = (user id);** — command to update column_values. <br/>
+
+**INSERT INTO employee (id, first_name, last_name, gender, email, date_of_birth, country_of_birth) VALUES (3, 'John', 'Doe', 'Male', 'John.Doe@gmail.com', DATE '2021-07-03', 'Brazil') ON CONFLICT (id) DO NOTHING;** — command to get around some conflicts(only for unique columns). <br/>
+
+With the help of this you can do it so that when a conflict occurs, immediately update this column. 👇 <br/>
+**INSERT INTO employee (id, first_name, last_name, gender, email, date_of_birth, country_of_birth) VALUES (3, 'John', 'Doe', 'Male', 'John.Doe@gmail.com', DATE '2021-07-03', 'Brazil') ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;** <br/>
+Or you can use this: 👇 <br/>
+**INSERT INTO employee (id, first_name, last_name, gender, email, date_of_birth, country_of_birth) VALUES (3, 'Jane', 'Doe', 'Male', 'John.Doe@gmail.com', DATE '2021-07-03', 'Brazil') ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email, first_name = EXCLUDED.first_name;** <br/>
+
+> Foreign Keys
+
+With the help of this one column will be supported in both tables. 👇 <br/>
+**ALTER TABLE *first_table_name* ADD *column_by_first_table* BIGINT REFERENCES *second_table_name(column_by_second_table)*;** <br/>
+And this is a foreign key 👆 <br/>
+
+> JOINS
+
+*Inner JOINS (default)*<br/>
+``` bash
+SELECT * FROM employee INNER JOIN bicycle ON employee.bicycle_id = bicycle.id;
+ id | first_name | last_name | gender |         email         | date_of_birth | country_of_birth | bicycle_id | id |   make   |     type      | price
+----+------------+-----------+--------+-----------------------+---------------+------------------+------------+----+----------+---------------+--------
+  2 | Prudy      | Gillespey | Male   | pgillespey2@nymag.com | 2021-01-30    | Palau            |          1 |  1 | Indi ATB | Mountain Bike | 100.00
+```
+
+*Left JOINS*
+``` bash
+SELECT * FROM employee LEFT JOIN bicycle ON bicycle.id = employee.bicycle_id WHERE bicycle_id IS NOT NULL;
+ id | first_name | last_name | gender |         email         | date_of_birth | country_of_birth | bicycle_id | id |   make   |     type      | price
+----+------------+-----------+--------+-----------------------+---------------+------------------+------------+----+----------+---------------+--------
+  2 | Prudy      | Gillespey | Male   | pgillespey2@nymag.com | 2021-01-30    | Palau            |          1 |  1 | Indi ATB | Mountain Bike | 100.00
+```
+*Right JOINS*
+```bash
+SELECT * FROM employee RIGHT JOIN bicycle ON employee.bicycle_id = bicycle.id;
+ id | first_name | last_name | gender |         email         | date_of_birth | country_of_birth | bicycle_id | id |    make     |       type        |  price
+----+------------+-----------+--------+-----------------------+---------------+------------------+------------+----+-------------+-------------------+---------
+  2 | Prudy      | Gillespey | Male   | pgillespey2@nymag.com | 2021-01-30    | Palau            |          1 |  1 | Indi ATB    | Mountain Bike     |  100.00
+    |            |           |        |                       |               |                  |            |  2 | Apollo Cafe | Women Hybrid Bike |  160.00
+    |            |           |        |                       |               |                  |            |  3 | Brompton    | Folding Bike      | 1045.00
+```
+*Full outer JOINS* <br/>
+SELECT * FROM employee FULL OUTER JOIN bicycle ON employee.bicycle_id = bicycle.id; <br/>
